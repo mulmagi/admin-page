@@ -65,10 +65,16 @@ export default {
             this.selectedFiles = Array.from(event.target.files);
         },
         async submitNotice() {
+            if (!this.title || !this.content) {
+                // 필수 필드 중 하나라도 입력되지 않은 경우
+                alert('제목, 내용은 필수값입니다.');
+                return;
+            }
             const formData = new FormData();
             formData.append('title', this.title);
             formData.append('content', this.content);
-            formData.append('photo', this.selectedFile);
+            if(this.selectedFile)
+                formData.append('photo', this.selectedFile);
 
             // 여러 파일을 추가
             this.selectedFiles.forEach((file, index) => {
@@ -77,11 +83,11 @@ export default {
 
             try {
                 // 서버에 formData를 POST 요청으로 전송
-                const response = await axios.post('://example.com/api/upload', formData);
-                console.log('파일 업로드 성공:', response.data);
+                const response = await axios.post('http://localhost:8808/api/notice/test/add', formData);
+                alert('파일 업로드 성공:', response.data);
                 this.$router.push('/notice-board');
             } catch (error) {
-                console.error('파일 업로드 실패:', error);
+                alert('파일 업로드 실패:', error);
             }
         }
     }
