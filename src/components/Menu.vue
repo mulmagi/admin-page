@@ -17,6 +17,10 @@
                 <li class="nav-item">
                     <router-link to="/complaint-list" class="nav-link">고객문의 리스트</router-link>
                 </li>
+
+                <li class="nav-item">
+                    <router-link to="/payment-test" class="nav-link">결제 테스트</router-link>
+                </li>
             </ul>
         </div>
     </nav>
