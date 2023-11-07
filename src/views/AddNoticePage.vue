@@ -83,7 +83,7 @@ export default {
 
             try {
                 // 서버에 formData를 POST 요청으로 전송
-                const response = await axios.post('http://localhost:8808/api/notice/test/add', formData);
+                const response = await axios.post('http://localhost:8808/api/notice/test/add', formData); // 임시 포트 8808
                 alert('파일 업로드 성공:', response.data);
                 this.$router.push('/notice-board');
             } catch (error) {
