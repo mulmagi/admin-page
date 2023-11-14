@@ -28,13 +28,16 @@ export default {
                 buyer_postcode: "123-456",
                 m_redirect_url: "http://localhost:8080/payment-test"
             }, function (rsp) { // callback
+                console.log(rsp)
                 if (rsp.success) { // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
-                    axios.post('http://localhost:3000/api/verifyIamport', { // 임시 포트번호 3000
+                    
+                    axios.post('http://localhost:8080/api/verifyIamport', { // 임시 포트번호 3000
                             imp_uid: rsp.imp_uid,
-                            method: 'TOSSPAY', // 유저가 선택한 결제 방법
-                            amount: 1000, // 유저가 충전할 포인트
+                            method: rsp.pg_provider, // 유저가 선택한 결제 방법
+                            amount: rsp.paid_amount, // 유저가 충전할 포인트
                         }, {
                             headers: {
+                                'Authorization': String,
                                 'Content-Type': 'application/json'
                             }
                         })
