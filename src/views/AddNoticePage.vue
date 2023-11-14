@@ -5,6 +5,16 @@
     <h1>공지사항 추가하기</h1>
     <form @submit.prevent="submitNotice">
         <div class="form-group form">
+            <label for="title">카테고리</label>
+            <select type="text" id="category" v-model="category" class="form-control">
+                <option value="NORMAL">일반</option>
+                <option value="CHARGE">요금</option>
+                <option value="EVENT">이벤트</option>
+                <option value="SYSTEM">시스템</option>
+                <option value="ETC">기타</option>
+            </select>
+        </div>
+        <div class="form-group form">
             <label for="title">제목</label>
             <input type="text" id="title" v-model="title" class="form-control">
         </div>
@@ -42,6 +52,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
+            category: '',
             title: '',
             content: '',
             selectedFile: null,
@@ -71,6 +82,7 @@ export default {
                 return;
             }
             const formData = new FormData();
+            formData.append('category', this.category);
             formData.append('title', this.title);
             formData.append('content', this.content);
             if(this.selectedFile)
